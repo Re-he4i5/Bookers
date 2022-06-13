@@ -1,2 +1,10 @@
 <h2>Users</h2>
 
+名前<%= @user.name %>
+紹介文<%= @user.introduction %>
+
+
+<% @users.each do |user| %>
+<%= user.name %>
+<%= user.introduction %>
+<% end %>
