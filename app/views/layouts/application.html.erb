@@ -15,7 +15,10 @@
       <%= render 'layouts/header'%>
     </header>
     <main>
-      <%= yield %>
+      <div class='container px-5 px-sm-0'>
+      <%= flash[:notice] %>
+        <%= yield %>
+      </div>
     </main>
     <footer>
     </footer>
