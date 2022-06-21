@@ -1,18 +1,7 @@
 <div class='container px-5 px-sm-0'>
-
-  <% if @book.errors.any? %>
-    <%= @book.errors.count %>errors prohibited this book from being saved:
-    <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  <% end %>
-
-
   <div class='row'>
 
-    <%= render'userinfo' , user: @user , book: @book %>
+    <%= render'userinfo' , user: @user , book: @book_new %>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <table class='table table-hover table-inverse'>
