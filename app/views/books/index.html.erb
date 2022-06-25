@@ -32,6 +32,25 @@
               </td>
               <td>
                 <%= link_to book.title, book_path(book.id) %>
+                <% if book.favorited?(current_user) %>
+                    <td>
+                        
+                        <%= link_to book_favorites_path(book.id), method: :delete do %>
+                            <i class="fas fa-heart" style="color:red;"></i>
+                            <span style="color:red;"><%= book.favorites.count %></span>
+                        <% end %>
+                    </td>
+                    <% else %>
+                    <td>
+                        
+                        <%= link_to book_favorites_path(book.id), method: :post do %>
+                            <i class="fas fa-heart" style="color:blue;"></i>
+                            <span style="color:blue;"><%= book.favorites.count %></span>
+                        <% end %>
+                    </td>
+                    <% end %>
+                </tr>
+                
               </td>
               <td>
                 <%= book.body %>
