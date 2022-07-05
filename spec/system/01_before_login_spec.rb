@@ -10,19 +10,19 @@ describe '[STEP1] ユーザログイン前のテスト' do
       it 'URLが正しい' do
         expect(current_path).to eq '/'
       end
-      it 'Log inリンクが表示される: 青色のボタンの表示が「Log in」である' do
+      it 'Log inリンクが表示される: 左上から5番目のリンクが「Log in」である' do
         log_in_link = find_all('a')[5].native.inner_text
-        expect(log_in_link).to match(/Log in/)
+        expect(log_in_link).to match(/log in/i)
       end
       it 'Log inリンクの内容が正しい' do
         log_in_link = find_all('a')[5].native.inner_text
         expect(page).to have_link log_in_link, href: new_user_session_path
       end
-      it 'Sign upリンクが表示される: 緑色のボタンの表示が「Sign up」である' do
+      it 'Sign Upリンクが表示される: 左上から6番目のリンクが「Sign Up」である' do
         sign_up_link = find_all('a')[6].native.inner_text
-        expect(sign_up_link).to match(/Sign up/)
+        expect(sign_up_link).to match(/sign up/i)
       end
-      it 'Sign upリンクの内容が正しい' do
+      it 'Sign Upリンクの内容が正しい' do
         sign_up_link = find_all('a')[6].native.inner_text
         expect(page).to have_link sign_up_link, href: new_user_registration_path
       end
@@ -47,38 +47,30 @@ describe '[STEP1] ユーザログイン前のテスト' do
     end
 
     context '表示内容の確認' do
-      it 'Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である' do
-        home_link = find_all('a')[0].native.inner_text
-        expect(home_link).to match(/Bookers/)
+      it 'タイトルが表示される' do
+        expect(page).to have_content 'Bookers'
       end
-      it 'Homeリンクが表示される: 左上から2番目のリンクが「Home」である' do
+      it 'Homeリンクが表示される: 左上から1番目のリンクが「Home」である' do
         home_link = find_all('a')[1].native.inner_text
-        expect(home_link).to match(/Home/)
+        expect(home_link).to match(/home/i)
       end
-      it 'Aboutリンクが表示される: 左上から3番目のリンクが「About」である' do
+      it 'Aboutリンクが表示される: 左上から2番目のリンクが「About」である' do
         about_link = find_all('a')[2].native.inner_text
-        expect(about_link).to match(/About/)
+        expect(about_link).to match(/about/i)
       end
-      it 'Sign upリンクが表示される: 左上から4番目のリンクが「Sign up」である' do
+      it 'sign upリンクが表示される: 左上から3番目のリンクが「sign up」である' do
         signup_link = find_all('a')[3].native.inner_text
-        expect(signup_link).to match(/Sign up/)
+        expect(signup_link).to match(/sign up/i)
       end
-      it 'Log inリンクが表示される: 左上から5番目のリンクが「Log in」である' do
+      it 'loginリンクが表示される: 左上から4番目のリンクが「login」である' do
         login_link = find_all('a')[4].native.inner_text
-        expect(login_link).to match(/Log in/)
+        expect(login_link).to match(/login/i)
       end
     end
 
     context 'リンクの内容を確認' do
       subject { current_path }
-      
-      it 'Bookersを押すと、トップ画面に遷移する' do
-        home_link = find_all('a')[0].native.inner_text
-        home_link = home_link.delete(' ')
-        home_link.gsub!(/\n/, '')
-        click_link home_link
-        is_expected.to eq '/'
-      end
+
       it 'Homeを押すと、トップ画面に遷移する' do
         home_link = find_all('a')[1].native.inner_text
         home_link = home_link.delete(' ')
@@ -92,16 +84,16 @@ describe '[STEP1] ユーザログイン前のテスト' do
         click_link about_link
         is_expected.to eq '/home/about'
       end
-      it 'Sign upを押すと、新規登録画面に遷移する' do
+      it 'sign upを押すと、新規登録画面に遷移する' do
         signup_link = find_all('a')[3].native.inner_text
         signup_link = signup_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
-        click_link signup_link, match: :first
+        click_link signup_link
         is_expected.to eq '/users/sign_up'
       end
-      it 'Log inを押すと、ログイン画面に遷移する' do
+      it 'loginを押すと、ログイン画面に遷移する' do
         login_link = find_all('a')[4].native.inner_text
         login_link = login_link.gsub(/\n/, '').gsub(/\A\s*/, '').gsub(/\s*\Z/, '')
-        click_link login_link, match: :first
+        click_link login_link
         is_expected.to eq '/users/sign_in'
       end
     end
@@ -174,7 +166,7 @@ describe '[STEP1] ユーザログイン前のテスト' do
       it 'passwordフォームが表示される' do
         expect(page).to have_field 'user[password]'
       end
-      it 'Log inボタンが表示される' do
+      it 'Sign upボタンが表示される' do
         expect(page).to have_button 'Log in'
       end
       it 'emailフォームは表示されない' do
@@ -218,25 +210,24 @@ describe '[STEP1] ユーザログイン前のテスト' do
     end
 
     context 'ヘッダーの表示を確認' do
-      it 'Bookersリンクが表示される: 左上から1番目のリンクが「Bookers」である' do
-        home_link = find_all('a')[0].native.inner_text
-        expect(home_link).to match(/Bookers/)
+      it 'タイトルが表示される' do
+        expect(page).to have_content 'Bookers'
       end
-      it 'Homeリンクが表示される: 左上から2番目のリンクが「Home」である' do
+      it 'Homeリンクが表示される: 左上から1番目のリンクが「Home」である' do
         home_link = find_all('a')[1].native.inner_text
-        expect(home_link).to match(/Home/)
+        expect(home_link).to match(/home/i)
       end
-      it 'Usersリンクが表示される: 左上から3番目のリンクが「Users」である' do
+      it 'Usersリンクが表示される: 左上から2番目のリンクが「Users」である' do
         users_link = find_all('a')[2].native.inner_text
-        expect(users_link).to match(/Users/)
+        expect(users_link).to match(/users/i)
       end
-      it 'Booksリンクが表示される: 左上から4番目のリンクが「Books」である' do
+      it 'Booksリンクが表示される: 左上から3番目のリンクが「Books」である' do
         books_link = find_all('a')[3].native.inner_text
-        expect(books_link).to match(/Books/)
+        expect(books_link).to match(/books/i)
       end
-      it 'Log outリンクが表示される: 左上から5番目のリンクが「Log out」である' do
+      it 'log outリンクが表示される: 左上から4番目のリンクが「logout」である' do
         logout_link = find_all('a')[4].native.inner_text
-        expect(logout_link).to match(/Log out/)
+        expect(logout_link).to match(/logout/i)
       end
     end
   end

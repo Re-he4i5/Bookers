@@ -26,6 +26,26 @@
               <td>
                 <%= book.body %>
               </td>
+
+              <% if book.favorited?(current_user) %>
+                <td>
+                    <!--# 一致するレコードが存在する＝すでにいいね済みの場合はdestroyアクションへ-->
+                    <%= link_to book_favorites_path(book.id), method: :delete do %>
+                        <i class="fas fa-heart" style="color:red;"></i>
+                        <span style="color:red;"><%= book.favorites.count %></span>
+                    <% end %>
+                </td>
+                <% else %>
+                <td>
+                    <!--# 一致するレコードが存在しない＝まだいいねしていない場合はcreateアクションへ-->
+                    <%= link_to book_favorites_path(book.id), method: :post do %>
+                        <i class="fas fa-heart" style="color:blue;"></i>
+                        <span style="color:blue;"><%= book.favorites.count %></span>
+                    <% end %>
+                </td>
+                <% end %>
+                <td>コメント数：<%= book.book_comments.count %></td>
+                
             </tr>
           <% end %>
         </tbody>

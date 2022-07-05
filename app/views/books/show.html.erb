@@ -24,34 +24,31 @@
               <td>
                 <%= @book.body %>
               </td>
-              <% if @book.user == current_user %>
-                <td><%= link_to "Edit", edit_book_path(@book.id) %></td>
-
-                <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "Are you sure？" %></td>
-              <% end %>
 
               <% if @book.favorited?(current_user) %>
-                    <td>
-                        <%= link_to book_favorites_path(@book.id), method: :delete do %>
-                            <i class="fas fa-heart" style="color:red;"></i>
-                            <span style="color:red;"><%= @book.favorites.count %></span>
-                        <% end %>
-                    </td>
-                    <% else %>
-                    <td>
-                        <%= link_to book_favorites_path(@book.id), method: :post do %>
-                            <i class="fas fa-heart" style="color:blue;"></i>
-                            <span style="color:blue;"><%= @book.favorites.count %></span>
-                        <% end %>
-                    </td>
+                <td>
+                    <%= link_to book_favorites_path(@book.id), method: :delete do %>
+                        <i class="fas fa-heart" style="color:red;"></i>
+                        <span style="color:red;"><%= @book.favorites.count %></span>
                     <% end %>
+                </td>
+                <% else %>
+                <td>
+                    <%= link_to book_favorites_path(@book.id), method: :post do %>
+                        <i class="fas fa-heart" style="color:blue;"></i>
+                        <span style="color:blue;"><%= @book.favorites.count %></span>
+                    <% end %>
+                </td>
+                <% end %>
 
-              <td>コメント数：<%= @book.book_comments.count %></td>
+              <td>
+                コメント数：<%= @book.book_comments.count %>
+              </td>
                     
-                    <% if current_user == @user %>
-                        <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
-                        <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか?", class: "btn btn-sm btn-danger" %></td>
-                    <% end %>
+              <% if current_user == @user %>
+                <td><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success" %></td>
+                <td><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか?", class: "btn btn-sm btn-danger" %></td>
+              <% end %>
             </tr>
         </tbody>
       </table>
